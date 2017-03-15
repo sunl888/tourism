@@ -15,6 +15,7 @@ use Dingo\Api\Contract\Http\Validator;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
 {
@@ -28,14 +29,11 @@ class UserController extends Controller
      */
     public function token(Request $request)
     {
-        $credentials=[
-            'email' => $request->email,
-            'password'  => $request->password,
-            /*'status' => 0,*/
-        ];
-
+        $credentials = $request->only('email', 'password');
+        $user = User::where(['email'=>$credentials['email'], 'password'=>$credentials['password']])->first();
+        $token = JWTAuth::fromUser($user);
         try {
-            if (! $token = Auth::guard($this->guard)->attempt($credentials)) {
+            if (!$token) {
                 return response()->json(['error' => 'invalid_credentials'], 401);
             }
         } catch (JWTException $e) {

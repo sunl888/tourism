@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });*/
-$api->get('class', 'IndexController@classList');
+$api->get('class', 'IndexController@getClasses');
 
 $api->post('token', 'UserController@token');    //获取token
 $api->post('refresh-token', 'UserController@refershToken'); //刷新token

@@ -26,14 +26,10 @@ class ClassesTransformer extends TransformerAbstract
     {
         return [
             // attributes
-
-            // links
-            'links' => [
-                [
-                    'rel' => 'self',
-                    'href' => url('path/to/resource'),
-                ],
-            ]
+            'id' =>$classes->id,
+            'title' =>$classes->title,
+            'slug' =>$classes->slug,
+            'is_top_menu' =>$classes->is_top_menu
         ];
     }
 }
