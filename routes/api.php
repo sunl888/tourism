@@ -17,6 +17,8 @@ use Illuminate\Http\Request;
     return $request->user();
 });*/
 $api->get('class', 'IndexController@getClasses');
+$api->get('articles/{offset?}/{limit?}', 'IndexController@getArticles');
+$api->get('byslug/{slug}', 'IndexController@getArticleBySlug');
 
 $api->post('token', 'UserController@token');    //获取token
 $api->post('refresh-token', 'UserController@refershToken'); //刷新token

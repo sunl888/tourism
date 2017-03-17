@@ -10,6 +10,7 @@ class Article extends Model
 
     protected $fillable = ['title','slug','class_id','user_id','views','source','sort'];
 
+
     //文章详情与内容一一对应
     public function content()
     {
@@ -25,16 +26,21 @@ class Article extends Model
     {
         return $this->belongsTo('App\Models\Classes');
     }
+
     //查看已审核文章
     public function scopeAudited($query)
     {
         return $query->where('status',1);
     }
+
     //按照sort降序，sort相等按添加时间降序排序
     public function scopeSort($query)
     {
-        return $query->where(['sort'=>'desc','create_at'=>'desc']);
+        return $query->orderBy('sort','desc')->orderBy('created_at','desc');
     }
-    //
 
+    public function scopePage($query,$offset=0,$limit=10)
+    {
+        return $query->offset($offset)->limit($limit);
+    }
 }
