@@ -43,4 +43,9 @@ class Article extends Model
     {
         return $query->offset($offset)->limit($limit);
     }
+
+    public function scopeClasses($query, $class_id=array())
+    {
+        return $query->whereIn('class_id', $class_id);
+    }
 }

@@ -13,12 +13,15 @@ use Illuminate\Http\Request;
 |
 */
 
-/*Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});*/
+//获取栏目列表
 $api->get('class', 'IndexController@getClasses');
-$api->get('articles/{offset?}/{limit?}', 'IndexController@getArticles');
+//分页获取所有的文章
+$api->get('articles/{classes?}/{offset?}/{limit?}', 'IndexController@getArticles');
+//通过文章slug获取文章详情
 $api->get('byslug/{slug}', 'IndexController@getArticleBySlug');
+//获取友情链接
+$api->get('links', 'IndexController@getLinks');
+
 
 $api->post('token', 'UserController@token');    //获取token
 $api->post('refresh-token', 'UserController@refershToken'); //刷新token
