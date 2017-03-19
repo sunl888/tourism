@@ -12,11 +12,11 @@ use App\Models\Article;
 use App\Models\Classes;
 use App\Http\Controllers\Api\ApiController;
 use App\Models\Link;
+use App\Models\WebInfo;
 use App\Transformers\ArticleTransformer;
 
 class IndexController extends ApiController
 {
-
     /**
      * 获取栏目列表
      * @return array
@@ -72,6 +72,15 @@ class IndexController extends ApiController
     }
 
     /**
+     * 获取网站信息
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getWebInfo()
+    {
+        return WebInfo::all();
+    }
+
+    /**
      * 获取该类别的id以及其子类别id
      * @param int $class_id
      * @return array
@@ -79,22 +88,6 @@ class IndexController extends ApiController
     public function getChildClass($class_id = 0)
     {
         $result = array();
-        /*$classes = $this->getClasses();
-        foreach ($classes as $item) {
-
-            if ($item['id'] == $class_id) {
-                if (!isset($item['child'])) {
-                    $result[] = $item['id'];
-                    break;
-                } else {
-                    $result[] = $item['id'];
-                    foreach ($item['child'] as $val) {
-                        $result[] = $val['id'];
-                    }
-                    break;
-                }
-            }
-        }*/
         $classes = Classes::all()->toArray();
         foreach ($classes as $item){
             if($item['id'] ==$class_id || $item['parent_id'] ==$class_id){

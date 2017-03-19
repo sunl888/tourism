@@ -11,10 +11,27 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+// Controllers Within The "App\Http\Controllers\Admin" Namespace
+Route::group(['namespace' => 'Admin'], function()
+{
+    //网站信息
+    Route::group(['prefix' => 'webinfo'], function()
+    {
+        //webinfo/store/{id}
+        Route::get('show', 'WebInfoController@show');
+        Route::post('update/{id}', 'WebInfoController@update');
+        Route::post('delete/{id}', 'WebInfoController@delete');
+    });
+    //友情链接
+    Route::group(['prefix' => 'link'], function ()
+    {
+        Route::post('store', 'LinkController@store');
+        Route::post('update/{id}', 'LinkController@update');
+        Route::post('delete/{id}', 'LinkController@delete');
+        Route::get('show', 'LinkController@show');
+    });
+
+
+});

@@ -21,11 +21,12 @@ $api->get('articles/{classes?}/{offset?}/{limit?}', 'IndexController@getArticles
 $api->get('byslug/{slug}', 'IndexController@getArticleBySlug');
 //获取友情链接
 $api->get('links', 'IndexController@getLinks');
+$api->get('webinfo', 'IndexController@getWebInfo');
 
 
-$api->post('token', 'UserController@token');    //获取token
+/*$api->post('token', 'UserController@token');    //获取token
 $api->post('refresh-token', 'UserController@refershToken'); //刷新token
 $api->group(['middleware' => ['auth:api']], function($api) {
     $api->post('logout', 'UserController@logout');    //登出
     $api->get('me', 'UserController@me');    //关于我
-});
+});*/

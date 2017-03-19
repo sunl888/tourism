@@ -24,8 +24,9 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
+        //设置路由参数规则
+        Route::patterns(['id' => '[0-9]+','classes' => '[0-9]+','offset' => '[0-9]+','limit' => '[0-9]+'
+        ]);
         parent::boot();
     }
 
