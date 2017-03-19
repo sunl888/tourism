@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-//webhook 1test
+//webhook 1test23
 
 //获取栏目列表
 $api->get('class', 'IndexController@getClasses');
