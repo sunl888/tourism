@@ -12,26 +12,13 @@ use App\Models\Article;
 use App\Models\Classes;
 use App\Http\Controllers\Api\ApiController;
 use App\Models\Link;
+use App\Models\Traits\TourismTrait;
 use App\Models\WebInfo;
 use App\Transformers\ArticleTransformer;
 
 class IndexController extends ApiController
 {
-    /**
-     * 获取栏目列表
-     * @return array
-     */
-    public function getClasses()
-    {
-        $classes = Classes::all()->toArray();
-        foreach ($classes as $item => $val) {
-            if ($val['parent_id']) {
-                $classes[$val['parent_id'] - 1]['child'][] = $val;
-                unset($classes[$item]);
-            }
-        }
-        return $classes;
-    }
+    use TourismTrait;
 
     /**
      * 获取某个栏目下的文章列表
@@ -80,20 +67,5 @@ class IndexController extends ApiController
         return WebInfo::all();
     }
 
-    /**
-     * 获取该类别的id以及其子类别id
-     * @param int $class_id
-     * @return array
-     */
-    public function getChildClass($class_id = 0)
-    {
-        $result = array();
-        $classes = Classes::all()->toArray();
-        foreach ($classes as $item){
-            if($item['id'] ==$class_id || $item['parent_id'] ==$class_id){
-                $result[] = $item['id'];
-            }
-        }
-        return $result;
-    }
+
 }
