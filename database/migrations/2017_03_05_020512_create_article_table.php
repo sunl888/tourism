@@ -17,7 +17,7 @@ class CreateArticleTable extends Migration
             $table->increments('id');
             $table->string('title')->comment('文章标题');
             //todo 这里的slug需要添加唯一索引
-            $table->string('slug')->comment('slug');
+            $table->string('slug')->comment('slug')->unique;
             $table->string('class_id')->comment('文章类型');
             $table->integer('user_id')->comment('作者');
             $table->string('tags')->nullable()->comment('tag');

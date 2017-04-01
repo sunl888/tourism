@@ -38,7 +38,7 @@ class WebInfoController extends Controller
             $webinfo = WebInfo::findOrFail($id);
             $webinfo->update($validator->valid());
         }catch(Exception $exception){
-            throw new \Exception($exception);
+            throw new \Exception($exception->getMessage());
         }
     }
 

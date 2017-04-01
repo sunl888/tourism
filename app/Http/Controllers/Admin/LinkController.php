@@ -32,7 +32,7 @@ class LinkController extends Controller
             }
             Link::create($validator->valid());
         }catch(\Exception $exception){
-            throw new \Exception($exception);
+            throw new \Exception($exception->getMessage());
         }
     }
 
@@ -52,7 +52,7 @@ class LinkController extends Controller
             $link = Link::findOrFail($id);
             $link->update($validator->valid());
         }catch(\Exception $exception){
-            throw new \Exception($exception);
+            throw new \Exception($exception->getMessage());
         }
     }
 
