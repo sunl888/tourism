@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 class ClassesController extends Controller
 {
+    protected $redirectSuccessUrl = 'column';
     use TourismTrait;
 
     public function show()
@@ -17,32 +18,43 @@ class ClassesController extends Controller
         return $this->getClasses();
     }
 
-    /*public function store(Request $request)
-    {
-        try{
-            $validator = $this->validator($request);
-            if($validator->fails()){
-                throw new \Exception($validator->errors()->first());
-            }
-            Classes::create($validator->valid());
-        }catch (\Exception $exception){
-            throw new \Exception($exception->getMessage());
-        }
-    }*/
-    public function store(ClassesRequest $request)
-    {
-        return Classes::create($request->input());
-    }
-
-    public function update($id, Request $request)
+    public function store(Request $request)
     {
         try{
             $validator = $this->validater($request);
             if($validator->fails()){
                 throw new \Exception($validator->errors()->first());
             }
-            $classes = Classes::findOrFail($id);
-            $classes->update($validator->valid());
+            Classes::create($validator->valid());
+            return $this->redirect();
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
+    /*public function store(ClassesRequest $request)
+    {
+        try{
+            Classes::create($request->only('title','slug','parent_id'));
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+        return $this->redirect();
+    }*/
+
+    public function update(Request $request)
+    {
+        try{
+            $validator = $this->validater($request);
+            if($validator->fails()){
+                throw new \Exception($validator->errors()->first());
+            }
+            $classes = Classes::find($request->get('parent_id'));
+            $classes->title = $request->get('title');
+            $classes->slug = $request->get('slug');
+            $classes->save();
+
+            return $this->redirect();
+
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }
@@ -50,7 +62,13 @@ class ClassesController extends Controller
 
     public function delete($id)
     {
-        return Classes::destroy($id);
+        Classes::destroy($id);
+        return $this->redirect();
+    }
+
+    protected function redirect()
+    {
+        return redirect($this->redirectSuccessUrl);
     }
 
     public function validater($request)
@@ -58,11 +76,13 @@ class ClassesController extends Controller
         $validator = Validator::make($request->input(),[
             'title'=>'required',
             'is_top_menu'=>'numeric',
-            'parent_id'=>'numeric',
+            'slug' =>'alpha_dash',
+            //'parent_id' =>'alpha_dash'
         ],[
             'title.required'=>'标题为必填项。',
             'is_top_menu.nemeric'=>'类型必须是数值。',
-            'parent_id.nemeric'=>'类型必须是数值。'
+            'slug.alpha_dash' =>'slug必须是字母或数字。',
+            //'parent_id.nemeric' =>'父级id必须是数字。'
         ]);
         return $validator;
     }

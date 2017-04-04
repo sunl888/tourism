@@ -48,4 +48,5 @@ class Article extends Model
     {
         return $query->whereIn('class_id', $class_id);
     }
+
 }

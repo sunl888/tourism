@@ -8,6 +8,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
@@ -21,7 +22,8 @@ class AuthenticateController extends Controller
 {
     use RedirectsUsers, ThrottlesLogins;
 
-    protected $redirectTo = 'home';
+    protected $redirectTo = '/';
+    protected $redirectAfterLogout = 'login';
 
     public function login()
     {
@@ -63,6 +65,9 @@ class AuthenticateController extends Controller
         $this->validate($request, [
             $this->username() => 'required',
             'password' => 'required',
+        ],[
+            'username.required' =>'用户名必须填写.',
+            'password.required' =>'密码必须填写.',
         ]);
     }
 
@@ -116,6 +121,7 @@ class AuthenticateController extends Controller
     protected function authenticated(Request $request, $user)
     {
         //
+        return User::loginLog($request, $user->id);
     }
 
     /**
@@ -126,7 +132,8 @@ class AuthenticateController extends Controller
      */
     protected function sendFailedLoginResponse(Request $request)
     {
-        $errors = [$this->username() => trans('auth.failed')];
+        //auth.failed
+        $errors = [$this->username() => trans('用户名或密码错误。')];
 
         if ($request->expectsJson()) {
             return response()->json($errors, 422);
@@ -161,7 +168,7 @@ class AuthenticateController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect('/');
+        return redirect($this->redirectAfterLogout);
     }
 
     /**

@@ -15,9 +15,10 @@ class User extends Authenticatable implements AuthenticatableUserContract
      *
      * @var array
      */
-    protected $fillable = [
+    /*protected $fillable = [
         'name', 'email', 'password',
-    ];
+    ];*/
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -44,4 +45,11 @@ class User extends Authenticatable implements AuthenticatableUserContract
         return [];
     }
 
+    public static function loginLog($request, $user_id)
+    {
+        $user = self::findOrFail($user_id);
+        $user->last_login_ip = $request->getClientIp();
+        $user->last_login_time = date('Y-m-d h:i:s', time());
+        $user->save();
+    }
 }

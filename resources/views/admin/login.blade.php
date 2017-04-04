@@ -11,9 +11,24 @@
         *{
             font-family:"微软雅黑";
         }
+        .form-horizontal{
+            position:relative;
+        }
         body{
             background-image: url({{asset('admin/picture/bg.jpg')}});
             background-size: cover;
+        }
+
+        .alert{
+            width:200px;
+            position:absolute;
+            border-radius:5px;
+            color:#890300;
+            margin:auto;
+            left:130px;
+            top:20px;
+            z-index:20;
+            background:rgb(255,211,209);
         }
         .login{
             width:1000px;
@@ -64,6 +79,9 @@
         .check{
             margin-top:-30px!important;
         }
+        .checkout{
+            margin-top:-40px;
+        }
         .btn{
             margin-top:-10px;
         }
@@ -77,13 +95,18 @@
         <form action="{{route('login')}}" method="post" class="form-horizontal">
             {{csrf_field()}}
             <!-- 让表单在一行中显示form-horizontal -->
+            @if($errors->all())
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>{{$errors->first()}}</strong>
+                </div>
+            @endif
             <div class="form-group">
                 <label for="username" class="col-lg-1 control-label">用户名</label>
                 <div class="col-lg-4">
-                    <input type="text" name="username" id="username" class="form-control" placeholder="admin">
+                    <input type="text" name="username" value="{{ old('username') }}" id="username" class="form-control" placeholder="admin">
                 </div>
             </div>
-
             <div class="form-group">
                 <label for="password" class="col-lg-1 control-label">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
                 <div class="col-lg-4">
@@ -96,7 +119,7 @@
             <div class="form-group check">
                 <div class="col-lg-11 col-lg-offset-1">
 		                <span class="checkbox ">
-		                    <label><input type="checkbox" name="remember" class="checkbox-inline">记住我</label>
+		                    <label><input type="checkbox" checked="checked" name="remember" class="checkbox-inline">记住我</label>
 		                </span>
                 </div>
             </div>
@@ -104,8 +127,8 @@
             <div class="form-group">
                 <div class="col-lg-4 col-lg-offset-1">
                     <input type="submit" value="登录" class="btn btn-danger btn-lg">
-                    <span class="text"></span>
                 </div>
+
             </div>
 
         </form>
@@ -121,5 +144,33 @@
 <script src="{{asset('admin/public/js/delaunay.js')}}"></script>
 <script src="{{asset('admin/public/js/TweenMax.js')}}"></script>
 <script src="{{asset('admin/js/effect.js')}}"></script>
+<script>
+    $(document).ready(function(){//页面加载完成再加载脚本
+        $('input[name="button"]').click(function(event){
+            var $name = $('input[name="username"]');
+            var $password = $('input[name="password"]');
+            var $text = $(".text");
+            var _name = $.trim($name.val());//去掉字符串多余空格
+            var _password = $.trim($password.val());
+            if(_name==''){
+                showTips('请输入用户名');
+                $name.focus();
+                return;
+            }
+            if(_password==''){
+                showTips('请输入密码');
+                return;
+            }
+            function showTips(string){
+                $('#message_box').fadeIn();
+
+                window.setTimeout(function(){
+                    $('#message_box').fadeOut();
+                },1500);
+            }
+        });
+
+    });
+</script>
 </body>
 </html>

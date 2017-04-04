@@ -3,10 +3,10 @@
 	background: url(../picture/2.jpg);
 }*/
 body{
-	background: url(admin/picture/bg.jpg);
+	background: url(../picture/bg.jpg);
 }
 h1 {
-  font-size: 2em;  
+  font-size: 2em;
 }
 li{
 	list-style: none;
@@ -51,7 +51,7 @@ a,a:hover{
 	display: block;
 	background: rgba(0, 0, 0, 0.8);
 	text-align: center;
-	background: url(admin/picture/ico_bg.png) no-repeat;
+	background: url(../picture/ico_bg.png) no-repeat;
 	color: #fff;
 }
 .head .headnav li.menu_0 a{
@@ -77,7 +77,7 @@ a,a:hover{
     margin-right: 10px;
     margin-top:25px;
 	display: block;
-	background: url(admin/picture/main_link_ico.png) no-repeat;
+	background: url(../picture/main_link_ico.png) no-repeat;
 }
 .headlink li a{
 	color:#D9D4D4;	
@@ -126,12 +126,12 @@ a,a:hover{
 	text-indent: 30px;
 	font-weight: bold;
 	color:#fff;
-	background: rgba(0, 0, 0, 0.8) url(admin/picture/2.png) no-repeat;
+	background: rgba(0, 0, 0, 0.8) url(../picture/2.png) no-repeat;
 	background-position: right 0px;
 	cursor: pointer;
 }
 .active{
-	background: rgba(0, 0, 0, 0.8) url(admin/picture/1.png) no-repeat!important;
+	background: rgba(0, 0, 0, 0.8) url(../picture/1.png) no-repeat!important;
 	background-position: right 0px!important;	
 }
 .leftmenu dl dt{

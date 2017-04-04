@@ -26,7 +26,7 @@ class ClassesRequest extends FormRequest
         return [
             'title'=>'required',
             'is_top_menu'=>'required|in:0,1',
-            'parent_id'=>'required|numeric',
+            'parent_id'=>'numeric',
             'slug'=>'required|unique:class,slug',
         ];
     }
@@ -36,9 +36,7 @@ class ClassesRequest extends FormRequest
         return [
             'title.required'=>'标题必须填。',
             'is_top_menu.required'=>'请确认是不是顶层菜单。',
-            'parent_id.required'=>'请填写父类',
             'slug.required'=>'slug必须填写.'
-
         ];
     }
 

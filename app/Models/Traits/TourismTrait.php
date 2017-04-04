@@ -16,10 +16,12 @@ trait TourismTrait
      */
     public function getClasses()
     {
-        $classes = Classes::all()->toArray();
+        $classes = Classes::orderBy('sort','desc')->get()->toArray();
+        $classes = array_column($classes, null, 'id');
+
         foreach ($classes as $item => $val) {
             if ($val['parent_id']) {
-                $classes[$val['parent_id'] - 1]['child'][] = $val;
+                $classes[$val['parent_id']]['child'][] = $val;
                 unset($classes[$item]);
             }
         }

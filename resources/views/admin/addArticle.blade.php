@@ -5,14 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>添加文章</title>
-<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-    <!-- <link rel="stylesheet" type="text/css" href="css/index.css"> -->
-    <link rel="stylesheet" type="text/css" href="../../../../后台管理/css/rightmain.css">
-  <link href="../../../../后台管理/editor/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <link href="../../../../后台管理/editor/css/froala_editor.min.css" rel="stylesheet" type="text/css">
+      <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="{{asset('admin/css/rightmain.css')}}">
+      <link rel="stylesheet" type="text/css" href="{{asset('admin/editor/css/font-awesome.min.css')}}">
+      <link rel="stylesheet" type="text/css" href="{{asset('admin/editor/css/font-awesome.min.css')}}">
 </head>
 
 <body>
@@ -56,7 +54,7 @@
             </div>
             <section id="editor">
               <div id='edit' style="margin-top: 30px;">
-                  <img class="fr-fir" src="../../../../后台管理/editor/img/old_clock.jpg" alt="Old Clock" width="300"/>
+                  <img class="fr-fir" src="{{asset('admin/editor/img/old_clock.jpg')}}" alt="Old Clock" width="300"/>
 
                   <h1>Click and edit</h1>
 
@@ -75,19 +73,18 @@
     </div>
   
 
-  <script src="../../../../后台管理/editor/js/libs/jquery-1.11.1.min.js"></script>
-  <script src="../../../../后台管理/editor/js/froala_editor.min.js"></script>
+  <script src="{{asset('admin/editor/js/froala_editor.min.js')}}"></script>
   <!--[if lt IE 9]>
-    <script src="../js/froala_editor_ie8.min.js"></script>
+    <script src="{{asset('admin/editor/js/froala_editor_ie8.min.js')}}"></script>
   <![endif]-->
-  <script src="../../../../后台管理/editor/js/plugins/tables.min.js"></script>
-  <script src="../../../../后台管理/editor/js/plugins/lists.min.js"></script>
-  <script src="../../../../后台管理/editor/js/plugins/colors.min.js"></script>
-  <script src="../../../../后台管理/editor/js/plugins/media_manager.min.js"></script>
-  <script src="../../../../后台管理/editor/js/plugins/font_family.min.js"></script>
-  <script src="../../../../后台管理/editor/js/plugins/font_size.min.js"></script>
-  <script src="../../../../后台管理/editor/js/plugins/block_styles.min.js"></script>
-  <script src="../../../../后台管理/editor/js/plugins/video.min.js"></script>
+ <script src="{{asset('admin/editor/js/plugins/tables.min.js')}}"></script>
+ <script src="{{asset('admin/editor/js/plugins/lists.min.js')}}"></script>
+ <script src="{{asset('admin/editor/js/plugins/colors.min.js')}}"></script>
+ <script src="{{asset('admin/editor/js/plugins/media_manager.min.js')}}"></script>
+ <script src="{{asset('admin/editor/js/plugins/font_family.min.js')}}"></script>
+ <script src="{{asset('admin/editor/js/plugins/font_size.min.js')}}"></script>
+ <script src="{{asset('admin/editor/js/plugins/block_styles.min.js')}}"></script>
+ <script src="{{asset('admin/editor/js/plugins/video.min.js')}}"></script>
 
   <script>
       $(function(){
