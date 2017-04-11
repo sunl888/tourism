@@ -21,11 +21,11 @@ class WebInfoController extends Controller
      * @param int $id
      * @throws \Exception
      */
-    public function update(Request $request, $id=0)
+    public function update(Request $request)
     {
         //validate
         try{
-            $validator = Validator::make($request->input(), [
+            $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'copyright' => 'required',
                 'case_number' => 'required',
@@ -35,8 +35,9 @@ class WebInfoController extends Controller
             if($validator->fails()){
                 throw new \Exception($validator->errors()->first());
             }
-            $webinfo = WebInfo::findOrFail($id);
+            $webinfo = WebInfo::first();
             $webinfo->update($validator->valid());
+            return redirect('webset');
         }catch(Exception $exception){
             throw new \Exception($exception->getMessage());
         }

@@ -8,18 +8,21 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{asset('admin/css/index.css')}}">
-    <title>牯牛降旅游网 - 后台管理系统</title>
+    <title>{{$webinfo->name}} - 后台管理系统</title>
 </head>
 <body>
 
 <div class="head">
     <div class="headlogo pull-left">
-        <h1><a href="javascript:;">后台管理系统</a></h1>
+        <h1><a href="{{url('/')}}">后台管理系统</a></h1>
     </div>
     <ul class="headnav pull-left">
         <li class="menu_0 current_menu">
-            <a>文章管理</a>
+            <a href="#">文章管理</a>
         </li>
+        {{--<li class="menu_0">
+            <a href="{{route('article')}}">文章管理</a>
+        </li>--}}
     </ul>
     <ul class="headlink pull-right">
         <li class="link_0"><a href="#">您好，{{Auth::user()->username}}</a></li>
@@ -56,10 +59,10 @@
             </dd>
         </dl>
         <dl>
-            <dt>我的账户</dt>
+            <dt>我的信息</dt>
             <dd>
                 <ul>
-                    <li><a href="javascript:;" _link="{{route('mine')}}">修改我的信息</a></li>
+                    <li><a href="javascript:;" _link="{{route('mine')}}">修改密码</a></li>
                 </ul>
             </dd>
         </dl>

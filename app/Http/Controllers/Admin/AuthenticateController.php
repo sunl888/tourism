@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use League\Flysystem\Exception;
 
@@ -120,7 +121,7 @@ class AuthenticateController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        //
+        //登录成功在这里写入日志
         return User::loginLog($request, $user->id);
     }
 
@@ -179,5 +180,47 @@ class AuthenticateController extends Controller
     protected function guard()
     {
         return Auth::guard();
+    }
+
+    protected function verifyOldPassword(Request $request)
+    {
+        return $this->guard()->attempt(
+            $request->only('username','password','email'), 'on'
+        );
+    }
+    public function update(Request $request)
+    {
+        try{
+            $validator = Validator::make($request->only('username','email','new_password','password'),[
+                'username'=>'required|max:20|min:4',
+                'email'=>['required','email'],
+                'new_password'=>'required|max:32|min:4'
+            ],[
+                'username.required'=>'请填写用户名。',
+                'email.required'=>'请填写email。',
+                'new_password.required'=>'请填写密码。',
+                'username.max'=>'用户名不得超过20位',
+                'new_password.max'=>'密码不得超过32位',
+                'new_password.min'=>'密码最短为4位',
+                'username.min'=>'用户名最短为4位',
+                'email.email'=>'email不合法.'
+            ]);
+            if($validator->fails()){
+                throw new \Exception($validator->errors()->first());
+            }
+            if(!$this->verifyOldPassword($request)){
+                throw new \Exception('原始信息有误，请重新填写。');
+            }
+            $user = User::find(Auth::user()->id);
+            $user->forceFill([
+                'password' => bcrypt($request['new_password']),
+                'remember_token' => Str::random(60),
+            ])->update();
+            $this->guard()->login($user);
+            return redirect('mine');
+
+        }catch(\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
     }
 }

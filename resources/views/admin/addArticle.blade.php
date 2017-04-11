@@ -5,12 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>添加文章</title>
-      <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
       <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
       <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <link rel="stylesheet" type="text/css" href="{{asset('admin/css/rightmain.css')}}">
       <link rel="stylesheet" type="text/css" href="{{asset('admin/editor/css/font-awesome.min.css')}}">
-      <link rel="stylesheet" type="text/css" href="{{asset('admin/editor/css/font-awesome.min.css')}}">
+      <link rel="stylesheet" type="text/css" href="{{asset('admin/editor/css/froala_editor.min.css')}}">
 </head>
 
 <body>
@@ -21,40 +20,47 @@
         </div>
 
         <div class="container intro">
-          <form action="" method="get" accept-charset="utf-8">
+          <form action="{{route('article/store')}}" method="post" accept-charset="utf-8">
+              {{csrf_field()}}
             <div class="row">
               <div class="col-sm-12 text">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">排序</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="请输入本文章的序号">
-                </div>
+
                 <div class="form-group">
                   <label for="exampleInputEmail1">文章标题</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="请输入文章标题">
+                  <input type="text" name="title" class="form-control" id="exampleInputEmail1" placeholder="请输入文章标题">
                 </div>
+
+                  <div class="form-group">
+                      <label for="exampleInputEmail1">排序</label>
+                      <input type="text" name="sort" class="form-control" id="exampleInputEmail1" placeholder="请输入本文章的序号">
+                  </div>
+
                 <div class="form-group column">
-                  <label for="exampleInputEmail1">此文章为</label>
+                  <label for="exampleInputEmail1">选择二级栏目</label>
+                  <select name="class" class="form-control">
+                      @foreach($classes as $class)
+                          @if(isset($class['child']))
+                              @foreach($class['child'] as $child)
+                                <option value="{{$child['title']}}">{{$child['title']}}</option>
+                                  @endforeach
+                          @endif
+                      @endforeach
+
+                  </select>
+                  {{--<label for="exampleInputEmail1">栏目下的</label>
                   <select class="form-control">
                     <option>黄山风景</option>
                     <option>黄山风景</option>
                     <option>黄山风景</option>
                     <option>黄山风景</option>
                     <option>黄山风景</option>
-                  </select>
-                  <label for="exampleInputEmail1">栏目下的</label>
-                  <select class="form-control">
-                    <option>黄山风景</option>
-                    <option>黄山风景</option>
-                    <option>黄山风景</option>
-                    <option>黄山风景</option>
-                    <option>黄山风景</option>
-                  </select>
+                  </select>--}}
                 </div>
               </div>
             </div>
-            <section id="editor">
+            <section name="content" id="editor">
               <div id='edit' style="margin-top: 30px;">
-                  <img class="fr-fir" src="{{asset('admin/editor/img/old_clock.jpg')}}" alt="Old Clock" width="300"/>
+                  {{--<img class="fr-fir" src="{{asset('admin/editor/img/old_clock.jpg')}}" alt="Old Clock" width="300"/>
 
                   <h1>Click and edit</h1>
 
@@ -62,17 +68,17 @@
 
                   <p><a href="http://google.com" title="Aenean sed hendrerit">Aenean sed hendrerit</a> velit. Nullam eu mi dolor. Maecenas et erat risus. Nulla ac auctor diam, non aliquet ante. Fusce ullamcorper, ipsum id tempor lacinia, sem tellus malesuada libero, quis ornare sem massa in orci. Sed dictum dictum tristique. Proin eros turpis, ultricies eu sapien eget, ornare rutrum ipsum. Pellentesque eros nisl, ornare nec ipsum sed, aliquet sollicitudin erat. Nulla tincidunt porta vehicula.</p>
 
-                  <p>Nullam laoreet imperdiet orci ac euismod. Curabitur vel lectus nisi. Phasellus accumsan aliquet augue, eu rutrum tellus iaculis in. Nunc viverra ultrices mollis. Curabitur malesuada nunc massa, ut imperdiet arcu lobortis sed. Cras ac arcu mauris. Maecenas id lectus nisl. Donec consectetur scelerisque quam at ultricies. Nam quis magna iaculis, condimentum metus ut, elementum metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus id tempus nisi.</p>
+                  <p>Nullam laoreet imperdiet orci ac euismod. Curabitur vel lectus nisi. Phasellus accumsan aliquet augue, eu rutrum tellus iaculis in. Nunc viverra ultrices mollis. Curabitur malesuada nunc massa, ut imperdiet arcu lobortis sed. Cras ac arcu mauris. Maecenas id lectus nisl. Donec consectetur scelerisque quam at ultricies. Nam quis magna iaculis, condimentum metus ut, elementum metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus id tempus nisi.</p>--}}
               </div>
           </section>
           <div class="form-group">
-              <input type="button" class="btn btn-info submit" id="exampleInputEmail1" value="提交" >
+              <input type="submit" class="btn btn-info submit" id="exampleInputEmail1" value="提交" >
           </div>
         </form>
       </div>
     </div>
-  
 
+  <script src="{{asset('admin/editor/js/libs/jquery-1.11.1.min.js')}}"></script>
   <script src="{{asset('admin/editor/js/froala_editor.min.js')}}"></script>
   <!--[if lt IE 9]>
     <script src="{{asset('admin/editor/js/froala_editor_ie8.min.js')}}"></script>

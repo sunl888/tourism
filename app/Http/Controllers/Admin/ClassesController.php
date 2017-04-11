@@ -48,7 +48,7 @@ class ClassesController extends Controller
             if($validator->fails()){
                 throw new \Exception($validator->errors()->first());
             }
-            $classes = Classes::find($request->get('parent_id'));
+            $classes = Classes::findOrFail($request->get('parent_id'));
             $classes->title = $request->get('title');
             $classes->slug = $request->get('slug');
             $classes->save();

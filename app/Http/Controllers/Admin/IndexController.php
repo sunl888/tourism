@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Article;
+use App\Models\Link;
 use App\Models\Traits\TourismTrait;
 use App\Models\WebInfo;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class IndexController extends Controller
 
     public function index()
     {
-        return view('admin.index');
+        return view('admin.index',['webinfo'=>WebInfo::first()]);
     }
 
     public function main()
@@ -32,18 +33,19 @@ class IndexController extends Controller
     public function column()
     {
         $classes = $this->getClasses();
-        //dd($classes);
         return view('admin.column',['classes'=>$classes]);
     }
 
     public function article()
     {
         $articles = Article::Sort()->get();
+        //dd($articles->toArray());
         return view('admin.article',['articles'=>$articles]);
     }
     public function link()
     {
-        return view('admin.link');
+        $links = Link::orderBy('created_at','desc')->get();
+        return view('admin.link',['links'=>$links]);
     }
     public function mine()
     {
@@ -51,10 +53,12 @@ class IndexController extends Controller
     }
     public function webset()
     {
-        return view('admin.webset');
+        $webset = WebInfo::first();
+        return view('admin.webset',['webset'=>$webset]);
     }
     public function addArticle()
     {
-        return view('admin.addArticle');
+        $classes = $this->getClasses();
+        return view('admin.addArticle',['classes'=>$classes]);
     }
 }

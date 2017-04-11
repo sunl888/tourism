@@ -3,18 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Article extends Model
 {
-    protected $table = 'articles';
+    use SoftDeletes;
 
+    protected $table = 'articles';
+    protected $dates = ['delete_at'];
     protected $fillable = ['title','slug','class_id','user_id','views','source','sort'];
 
 
     //文章详情与内容一一对应
     public function content()
     {
-        return $this->hasOne('App\Models\Content');
+        return $this->hasOne(Content::class);
     }
     //一篇文章对应一个作者
     public function user()

@@ -52,4 +52,6 @@ class User extends Authenticatable implements AuthenticatableUserContract
         $user->last_login_time = date('Y-m-d h:i:s', time());
         $user->save();
     }
+
+
 }

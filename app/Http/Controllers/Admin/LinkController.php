@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 class LinkController extends Controller
 {
+    protected $redirectSuccessUrl = 'link';
     /**
      * 显示友情链接
      * @return \Illuminate\Database\Eloquent\Collection|static[]
@@ -31,6 +32,7 @@ class LinkController extends Controller
                 throw new \Exception($validator->errors()->first());
             }
             Link::create($validator->valid());
+            return $this->redirect();
         }catch(\Exception $exception){
             throw new \Exception($exception->getMessage());
         }
@@ -42,15 +44,18 @@ class LinkController extends Controller
      * @param Request $request
      * @throws \Exception
      */
-    public function update($id, Request $request)
+    public function update(Request $request)
     {
+        $newLink = $request->except('id');
         try{
             $validator = $this->validater($request);
             if($validator->fails()){
                 throw new \Exception($validator->errors()->first());
             }
-            $link = Link::findOrFail($id);
-            $link->update($validator->valid());
+            $link = Link::findOrFail($request->get('id'));
+            $link->update($newLink);
+            return $this->redirect();
+
         }catch(\Exception $exception){
             throw new \Exception($exception->getMessage());
         }
@@ -81,6 +86,12 @@ class LinkController extends Controller
      */
     public function delete($id)
     {
-        return Link::destroy($id);
+        Link::destroy($id);
+        return $this->redirect();
+    }
+
+    protected function redirect()
+    {
+        return redirect($this->redirectSuccessUrl);
     }
 }

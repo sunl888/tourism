@@ -28,7 +28,6 @@ Route::group(['namespace' => 'Admin'], function() {
         Route::get('webset', 'IndexController@webset')->name('webset');
         Route::get('mine', 'IndexController@mine')->name('mine');
         Route::get('add_article', 'IndexController@addArticle')->name('add_article');
-        Route::get('audit', 'ArticleController@audit')->name('audit');
 
         //分类
         Route::group(['prefix' => 'class'], function () {
@@ -37,25 +36,35 @@ Route::group(['namespace' => 'Admin'], function() {
             Route::get('delete/{id}', 'ClassesController@delete');
         });
 
-    });
+        //友情链接
+        Route::group(['prefix' => 'link'], function () {
+            Route::post('store', 'LinkController@store')->name('link/store');
+            Route::post('update', 'LinkController@update')->name('link/update');
+            Route::get('delete/{id}', 'LinkController@delete');
+            //Route::get('show', 'LinkController@show');
+        });
 
-    //网站信息
-    Route::group(['prefix' => 'webinfo'], function()
-    {
-        //webinfo/store/{id}
-        Route::get('show', 'WebInfoController@show');
-        Route::post('update/{id}', 'WebInfoController@update');
-        Route::post('delete/{id}', 'WebInfoController@delete');
-    });
-    //友情链接
-    Route::group(['prefix' => 'link'], function ()
-    {
-        Route::post('store', 'LinkController@store');
-        Route::post('update/{id}', 'LinkController@update');
-        Route::post('delete/{id}', 'LinkController@delete');
-        Route::get('show', 'LinkController@show');
-    });
+        //网站信息
+        Route::group(['prefix' => 'webset'], function() {
+            Route::post('update', 'WebInfoController@update')->name('webset/update');
+            //Route::post('delete/{id}', 'WebInfoController@delete');
+            //Route::get('show', 'WebInfoController@show');
+        });
 
+        //个人信息
+        Route::group(['prefix' => 'mine'], function () {
+            Route::post('update', 'AuthenticateController@update')->name('mine/reset');
+        });
+
+        //文章管理
+        Route::group(['prefix' => 'article'], function () {
+            Route::get('audit/{slug}/{status}', 'ArticleController@audit');
+
+            Route::post('store', 'ArticleController@store')->name('article/store');
+            Route::post('update', 'ArticleController@update')->name('article/update');
+            Route::get('delete/{slug}', 'ArticleController@delete');
+        });
+    });
 
 
 });

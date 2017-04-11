@@ -12,7 +12,8 @@
         "laravel/tinker": "~1.0",
         "prettus/l5-repository": "^2.6",
         "metricloop/laravel-transformer-maker": "^1.0",
-        "tymon/jwt-auth": "^1.0@dev"
+        "tymon/jwt-auth": "^1.0@dev",
+        "froala/wysiwyg-editor-php-sdk" : "*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

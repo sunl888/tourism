@@ -40,18 +40,18 @@
                         <td class=""><input type="checkbox" name=""></td>
                         <td><a href="javascript:;">{{$article->title}}</a></td>
                         <td><span>{{$article->sort}}</span></td>
-                        <td><a href="{{route('audit')/$article->slug/1}}">同意</a> <a href="javascript:;">拒绝</a></td>
+                        <td><a href="{{url('article/audit/'.$article->slug.'/1')}}">同意</a> <a href="{{url('article/audit/'.$article->slug.'/-1')}}">拒绝</a></td>
                         <td><span>@if($article->status ==1) 通过@elseif($article->status ==-1) 拒绝 @else 待审核 @endif</span></td>
                         <td>
                             <a href="introduce.html">修改</a>
-                            <a href="javascript:;">删除</a>
+                            <a href="{{url('article/delete/'.$article->slug)}}">删除</a>
                         </td>
                     </tr>
                     @endforeach
                     </tbody>
                 </table>
             </div>
-            <div class="page"></div>
+            {{--<div class="page"></div>--}}
         </div>
     </div>
 </div>
