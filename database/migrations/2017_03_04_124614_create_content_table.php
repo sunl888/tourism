@@ -17,7 +17,7 @@ class CreateContentTable extends Migration
             $table->increments('id');
             $table->text('content')->comment('文章详情');
             $table->string('article_id')->comment('文章类型');
-            $table->string('photos')->nullable()->comment('图片url数组');
+            $table->string('cover')->nullable()->comment('题图');
             $table->softDeletes();
             $table->timestamps();
         });

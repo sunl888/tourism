@@ -29,8 +29,10 @@
             <label for="exampleInputEmail1">添加栏目</label>
             <form action="{{route('class/store')}}" method="post">
                 {{csrf_field()}}
-                <input type="text" name="title" class="form-control" id="exampleInputEmail1" placeholder="请输入栏目名称">
-                <input type="text" name="slug" class="form-control" id="exampleInputEmail1" placeholder="请输入栏目slug">
+                <input type="text" name="title" class="form-control" id="exampleInputEmail1" placeholder="栏目名称">
+                <input type="text" name="slug" class="form-control" id="exampleInputEmail1" placeholder="栏目slug">
+                <input type="text" name="url" value="/" class="form-control" id="exampleInputEmail1" placeholder="栏目外链，默认为空">
+                <input type="text" name="sort" value=0 class="form-control" id="exampleInputEmail1" placeholder="排序">
                 <input type="button" name="" value="关闭" onclick="document.getElementById('box').style.display='none'"
                        class="btn btn-info">
                 <input type="hidden" name="parent_id" value=0 class="parents" />
@@ -42,11 +44,12 @@
             <label for="exampleInputEmail1">修改栏目</label>
             <form action="{{route('class/update')}}" method="post">
                 {{csrf_field()}}
-                <input type="text" name="title" class="form-control" id="exampleInputEmail1" placeholder="请输入栏目名称">
-                <input type="text" name="slug" class="form-control" id="exampleInputEmail1" placeholder="请输入栏目slug">
+                <input type="text" name="title" class="form-control" id="exampleInputEmail1" placeholder="栏目名称">
+                <input type="text" name="slug" class="form-control" id="exampleInputEmail1" placeholder="栏目slug">
+                <input type="text" name="url" value="/" class="form-control" id="exampleInputEmail1" placeholder="栏目外链，默认为空">
+                <input type="text" name="sort" value=0 class="form-control" id="exampleInputEmail1" placeholder="排序">
                 <input type="button" name="" value="关闭" onclick="document.getElementById('box2').style.display='none'"
                        class="btn btn-info">
-                {{--<label class="parents" for="exampleInputEmail1"></label>--}}
                 <input type="hidden" name="parent_id" value=0 class="parents" />
                 <input type="submit" name="" value="确认修改" class="btn  btn-danger">
             </form>

@@ -15,12 +15,12 @@ class CreateClassTable extends Migration
     {
         Schema::create('class', function (Blueprint $blueprint) {
             $blueprint->increments('id');
-            $blueprint->string('title',5);
-            $blueprint->string('slug')->comment('slug')->unique;
-            $blueprint->integer('sort')->default(0);
-            $blueprint->integer('is_top_menu')->default(1)->comment('是否是顶级菜单');
-            $blueprint->integer('parent_id')->default(0)->comment('父级id，默认是顶级菜单，父级id为0');
-            $blueprint->string('url')->default('/')->comment('栏目链接');
+            $blueprint->string('title',10);
+            $blueprint->string('slug',20)->comment('slug')->unique;
+            $blueprint->integer('sort')->nullable()->default(0);
+            //$blueprint->integer('is_top_menu')->default(1)->comment('是否是顶级菜单');
+            $blueprint->integer('parent_id')->nullable()->default(0)->comment('父级id，默认是顶级菜单，父级id为0');
+            $blueprint->string('url')->nullable()->default('/')->comment('外部链接');
             $blueprint->softDeletes();
             $blueprint->timestamps();
         });

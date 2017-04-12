@@ -15,6 +15,7 @@ class ClassesController extends Controller
 
     public function show()
     {
+        //todo 物理删除某一个栏目之后会报错。
         return $this->getClasses();
     }
 
@@ -51,6 +52,8 @@ class ClassesController extends Controller
             $classes = Classes::findOrFail($request->get('parent_id'));
             $classes->title = $request->get('title');
             $classes->slug = $request->get('slug');
+            $classes->url = $request->get('url');
+            $classes->sort = $request->get('sort');
             $classes->save();
 
             return $this->redirect();
@@ -75,14 +78,12 @@ class ClassesController extends Controller
     {
         $validator = Validator::make($request->input(),[
             'title'=>'required',
-            'is_top_menu'=>'numeric',
             'slug' =>'alpha_dash',
-            //'parent_id' =>'alpha_dash'
+            'sort' =>'numeric',
         ],[
             'title.required'=>'标题为必填项。',
-            'is_top_menu.nemeric'=>'类型必须是数值。',
+            'sort.nemeric'=>'sort必须是数值。',
             'slug.alpha_dash' =>'slug必须是字母或数字。',
-            //'parent_id.nemeric' =>'父级id必须是数字。'
         ]);
         return $validator;
     }

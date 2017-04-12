@@ -39,7 +39,6 @@ class IndexController extends Controller
     public function article()
     {
         $articles = Article::Sort()->get();
-        //dd($articles->toArray());
         return view('admin.article',['articles'=>$articles]);
     }
     public function link()
