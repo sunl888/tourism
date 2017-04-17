@@ -4,7 +4,6 @@ namespace App\Transformers;
 
 use App\Models\Article;
 use League\Fractal\TransformerAbstract;
-//use App\Entities\Articles;
 
 /**
  * Class ArticlesTransformer
@@ -23,7 +22,6 @@ class ArticleTransformer extends TransformerAbstract
     {
         return [
             'id'         => (int) $model->id,
-
             /* place your other model properties here */
             'title' =>$model->title,
             'slug' =>$model->slug,
@@ -31,8 +29,9 @@ class ArticleTransformer extends TransformerAbstract
             'source' =>$model->source,
             'content' =>$model->content->content,
             'photos' =>$model->content->photos,
-            'auther' =>$model->user->name,
-
+            'auther' =>$model->user['username'],
+            'parent' =>$model->class['parent']['title'],
+            'child' =>$model->class['child']['title'],
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at
         ];

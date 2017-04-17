@@ -22,6 +22,7 @@ class IndexController extends ApiController
 
     /**
      * 获取某个栏目下的文章列表
+     * @param $classes 栏目id
      * @param $offset 偏移量
      * @param $limit 每页显示记录数
      */
@@ -38,6 +39,7 @@ class IndexController extends ApiController
         return $this->response()->collection($articles, new ArticleTransformer());
     }
 
+
     /**
      * 通过文章slug获取文章详情
      * @param $slug
@@ -45,7 +47,7 @@ class IndexController extends ApiController
      */
     public function getArticleBySlug($slug)
     {
-        $article = Article::where(['slug' => $slug])->limit(1)->get();
+        $article = Article::where(['slug' => $slug])->Audited()->with('user')->limit(1)->get();
         return $this->response()->collection($article, new ArticleTransformer());
     }
 

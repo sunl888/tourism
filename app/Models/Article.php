@@ -11,6 +11,7 @@ class Article extends Model
 
     protected $table = 'articles';
     protected $dates = ['delete_at'];
+    protected $appends = ['class']; //追加值
     protected $fillable = ['title','slug','class_id','user_id','views','source','sort'];
 
 
@@ -50,6 +51,12 @@ class Article extends Model
     public function scopeClasses($query, $class_id=array())
     {
         return $query->whereIn('class_id', $class_id);
+    }
+
+    //给每个文章添加其所属栏目属性
+    public function getClassAttribute()
+    {
+        return $this->attributes['class'] = Classes::getClass($this->class_id);
     }
 
 }
