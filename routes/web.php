@@ -28,6 +28,7 @@ Route::group(['namespace' => 'Admin'], function() {
         Route::get('webset', 'IndexController@webset')->name('webset');
         Route::get('mine', 'IndexController@mine')->name('mine');
         Route::get('add_article', 'IndexController@addArticle')->name('add_article');
+        Route::get('update_article/{article_id}', 'IndexController@updateArticle');
 
         //分类
         Route::group(['prefix' => 'class'], function () {

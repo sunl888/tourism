@@ -43,7 +43,7 @@
                         <td><a href="{{url('article/audit/'.$article->slug.'/1')}}">同意</a> <a href="{{url('article/audit/'.$article->slug.'/-1')}}">拒绝</a></td>
                         <td><span>@if($article->status ==1) 通过@elseif($article->status ==-1) 拒绝 @else 待审核 @endif</span></td>
                         <td>
-                            <a href="introduce.html">修改</a>
+                            <a href="{{url('update_article'.'/'.$article->id)}}">修改</a>
                             <a href="{{url('article/delete/'.$article->slug)}}">删除</a>
                         </td>
                     </tr>

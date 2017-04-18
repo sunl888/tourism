@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Article;
+use App\Models\Content;
 use App\Models\Link;
 use App\Models\Traits\TourismTrait;
 use App\Models\WebInfo;
@@ -59,5 +60,13 @@ class IndexController extends Controller
     {
         $classes = $this->getClasses();
         return view('admin.addArticle',['classes'=>$classes]);
+    }
+    public function updateArticle($article_id)
+    {
+        $article = Article::find($article_id);
+        $content = Content::where(['article_id'=>$article->id])->get()->toArray();
+        $classes = $this->getClasses();
+        //dd(htmlentities($content[0]['content']));
+        return view('admin.updateArticle',['article'=>$article,'content'=>$content,'classes'=>$classes]);
     }
 }

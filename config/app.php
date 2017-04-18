@@ -173,6 +173,8 @@ return [
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         MetricLoop\TransformerMaker\TransformerMakerServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
+        Overtrue\LaravelUEditor\UEditorServiceProvider::class,
+        Overtrue\LaravelPinyin\ServiceProvider::class,
         //Way\Generators\GeneratorsServiceProvider::class,
         /*
          * Application Service Providers...
@@ -234,6 +236,7 @@ return [
 
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'Pinyin' => Overtrue\LaravelPinyin\Facades\Pinyin::class,
     ],
 
 ];

@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\CreateArticleRequest;
 use App\Models\Article;
 use App\Models\Content;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Overtrue\LaravelPinyin\Facades\Pinyin;
 
 class ArticleController extends Controller
 {
@@ -57,8 +60,39 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
-        
-        dd($request->all());
+        $article = $request->except('content');
+        $article['slug'] = Pinyin::abbr($article['title']);
+        $article['user_id'] = Auth::id();
+        $article['status'] = 0;
+        $article['views'] = 0;
+        $article['source'] = "原创文章";
+        $article = Article::create($article);
+        $article = $article->toArray();
+
+        $content['article_id'] = $article['id'];
+        $content['content'] = $request->get('content');
+        $content['cover'] = $request->get('cover');
+        Content::create($content);
+        return redirect('article');
+    }
+
+    public function update(Request $request)
+    {
+        $post = $request->all();
+        $article = Article::find($request->get("article_id"));
+
+        $article->slug = Pinyin::abbr($post['title']);
+        $article->user_id = Auth::id();
+        $article->sort = $post['sort'];
+        $article->title = $post['title'];
+        $article->source = "原创文章";
+        $article->update();
+
+        $content = Content::where(['article_id'=>$post['article_id']])->first();
+        $content->content = $post['content'];
+        $content->cover = isset($post['cover'])?$post['cover']:null;
+        $content->update();
+        return redirect('article');
     }
 
     protected function credentials(Request $request)
