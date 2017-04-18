@@ -17,6 +17,7 @@ trait TourismTrait
     public function getClasses()
     {
         $classes = Classes::orderBy('sort','desc')->get()->toArray();
+
         $classes = array_column($classes, null, 'id');
 
         foreach ($classes as $item => $val) {
