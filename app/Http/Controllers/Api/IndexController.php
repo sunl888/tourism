@@ -36,6 +36,7 @@ class IndexController extends ApiController
             ->Classes($classes)
             ->Page($offset, $limit)
             ->get();
+        //dd($articles->toArray());
         return $this->response()->collection($articles, new ArticleTransformer());
     }
 
@@ -47,8 +48,11 @@ class IndexController extends ApiController
      */
     public function getArticleBySlug($slug)
     {
-        $article = Article::where(['slug' => $slug])->Audited()->with('user')->limit(1)->get();
-        return $this->response()->collection($article, new ArticleTransformer());
+        //get取的值是一个集合，first和find取得值不是集合
+        $article = Article::where(['slug' => $slug])->Audited()->with('user')->with('content')->first();
+        $article->views++;
+        $article->save();
+        return $this->response()->item($article, new ArticleTransformer());
     }
 
     /**
