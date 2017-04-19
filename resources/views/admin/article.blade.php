@@ -38,7 +38,7 @@
                     @foreach($articles as $article)
                     <tr>
                         <td class=""><input type="checkbox" name=""></td>
-                        <td><a href="javascript:;">{{$article->title}}</a></td>
+                        <td><a href="{{url('update_article'.'/'.$article->id)}}">{{$article->title}}</a></td>
                         <td><span>{{$article->sort}}</span></td>
                         <td><a href="{{url('article/audit/'.$article->slug.'/1')}}">同意</a> <a href="{{url('article/audit/'.$article->slug.'/-1')}}">拒绝</a></td>
                         <td><span>@if($article->status ==1) 通过@elseif($article->status ==-1) 拒绝 @else 待审核 @endif</span></td>
